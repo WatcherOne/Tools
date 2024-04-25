@@ -1,30 +1,6 @@
 <script setup lang="ts">
 import { createToken } from './create.ts'
-import { reactive, ref } from 'vue'
-import type { CSSProperties } from 'vue'
-
-interface Mark {
-  style: CSSProperties
-  label: string
-}
-
-type Marks = Record<number, Mark | string>
-
-const value = ref([30, 60])
-const marks = reactive<Marks>({
-  0: '0°C',
-  8: '8°C',
-  37: '37°C',
-  50: {
-    style: {
-      color: '#1989FA',
-    },
-    label: '50%',
-  },
-})
-
-// Token: 封装了共通函数干嘛的？
-// Token: 参数也封装了？
+import { useCopy } from '@/hooks/useCopy'
 
 const length = ref(64)
 const withUppercase = ref(true)
@@ -32,47 +8,58 @@ const withLowercase = ref(true)
 const withNumbers = ref(true)
 const withSymbols = ref(true)
 
-const token = ref(null)
+const token = ref('')
+
+watch([length, withUppercase, withLowercase, withNumbers, withSymbols], () => {
+    token.value = generatorToken()
+})
+
+const refresh = () => {
+    token.value = generatorToken()
+}
 
 onMounted(() => {
-    token.value = createToken({
+    token.value = generatorToken()
+})
+
+const generatorToken = () => {
+    return createToken({
         length: length.value,
         withUppercase: withUppercase.value,
         withLowercase: withLowercase.value,
         withNumbers: withNumbers.value,
         withSymbols: withSymbols.value
     })
-})
+}
 
+const { copy } = useCopy({ source: token, text: useI18n().t('collection.copied') })
 </script>
 
 <template>
     <el-card class="wat-token-create wat-card">
-        <el-form size="large">
+        <el-form>
             <el-form-item>
-                <el-checkbox v-model="withUppercase" label="大写"></el-checkbox>
+                <el-checkbox v-model="withUppercase" :label="$t('token-create.uppercase')"></el-checkbox>
             </el-form-item>
             <el-form-item>
-                <el-checkbox v-model="withLowercase" label="小写"></el-checkbox>
+                <el-checkbox v-model="withLowercase" :label="$t('token-create.lowercase')"></el-checkbox>
             </el-form-item>
             <el-form-item>
-                <el-checkbox v-model="withNumbers" label="数字"></el-checkbox>
+                <el-checkbox v-model="withNumbers" :label="$t('token-create.numbers')"></el-checkbox>
             </el-form-item>
             <el-form-item>
-                <el-checkbox v-model="withSymbols" label="符号"></el-checkbox>
+                <el-checkbox v-model="withSymbols" :label="$t('token-create.symbols')"></el-checkbox>
             </el-form-item>
             <el-form-item>
-                <el-slider v-model="length" :marks="marks" />
+                <el-slider v-model="length" :min="1" :max="512"></el-slider>
             </el-form-item>
             <el-form-item>
-                <el-input type="textarea" :value="token" readonly :rows="4"></el-input>
+                <el-input type="textarea" :value="token" readonly :rows="5"></el-input>
             </el-form-item>
         </el-form>
+        <div class="card-footer">
+            <el-button @click="copy()" type="primary">{{ $t('button.copy') }}</el-button>
+            <el-button @click="refresh" type="success">{{ $t('button.refresh') }}</el-button>
+        </div>
     </el-card>
 </template>
-
-<style>
-.wat-card {
-    min-width: 600px;
-}
-</style>

@@ -13,6 +13,7 @@ export const createToken = ({
     withNumbers?: boolean,
     withSymbols?: boolean
 }) => {
+    
     const allAlphabet = [
         withUppercase ? 'ABCDEFGHIJKLMOPQRSTUVWXYZ' : '',
         withLowercase ? 'abcdefghijklmopqrstuvwxyz' : '',

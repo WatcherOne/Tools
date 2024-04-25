@@ -57,6 +57,13 @@ export default defineConfig({
             autoInstall: true
         })
     ],
+    css: {
+        preprocessorOptions: {
+            less: {
+                javascriptEnabled: true
+            }
+        }
+    },
     resolve: {
         alias: {
             // 文件路径 URL 字符串或 URL 对象 --> 平台特定的 Node.js 文件路径

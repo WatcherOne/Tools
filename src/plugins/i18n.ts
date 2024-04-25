@@ -17,3 +17,7 @@ export const i18n = createI18n({
     // 如果设置为True, 则将`$t()`函数注册到全局
     globalInjection: true
 })
+
+export const translate = (localeKey: string) => {
+    return i18n.global.te(localeKey) ? i18n.global.t(localeKey) : localeKey
+}
