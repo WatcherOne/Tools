@@ -2,8 +2,9 @@
 import { I18N_KEY } from './constants'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
-import '@/assets/styles/common.less'
+import 'vue3-json-viewer/dist/index.css'
 import '@/assets/styles/element-plus.less'
+import '@/assets/styles/common.less'
 
 const { locale } = useI18n()
 

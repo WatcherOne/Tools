@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createToken } from './create.ts'
-import { useCopy } from '@/hooks/useCopy'
 
 const length = ref(64)
 const withUppercase = ref(true)

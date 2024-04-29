@@ -23,6 +23,8 @@ export default defineConfig({
                 // 还需要在 tsconfig.json 中配置, 不然在单文件中使用会 eslint 报错!
                 // includes: ["./auto-imports.d.ts"]
             ]
+            // 导入的位置, 默认: .ts/.tsx/.js/.jsx/.vue
+            include: [],
             resolvers: [
                 // 自动导入 ElementPlus 相关函数
                 ElementPlusResolver(),
@@ -57,4 +59,27 @@ export default defineConfig({
         vue()
     ]
 })
+```
+
+3. views文件夹下的vue文件报 自动导入的模块 爆红且不报错
+
+- 主要引入文件内代码并配置
+- 在 tsconfig.json 中配置
+- 还爆红就重启项目!!!
+
+```javascript
+declare module '*.vue' {
+    import type { DefineComponent } from 'vue'
+    const component: DefineComponent<{}, {}, {}, any>
+    export default component
+}
+```
+
+```json
+"include": [
+    "src/*.ts",
+    // 对应需要解决爆红的vue文件位置
+    "src/**/*.vue",
+    "src/**/**/*.vue"
+]
 ```

@@ -15,35 +15,35 @@ const baseConfig = {
 }
 const formats = computed(() => [
     {
-        label: t('case-converter.lowercase'),
+        label: t('converter.case.lowercase'),
         value: input.value.toLocaleLowerCase()
     },
     {
-        label: t('case-converter.uppercase'),
+        label: t('converter.case.uppercase'),
         value: input.value.toLocaleUpperCase()
     },
     {
-        label: t('case-converter.camelcase'),
+        label: t('converter.case.camelcase'),
         value: camelCase(input.value, baseConfig as any)
     },
     {
-        label: t('case-converter.capitalcase'),
+        label: t('converter.case.capitalcase'),
         value: capitalCase(input.value, baseConfig as any)
     },
     {
-        label: t('case-converter.constantcase'),
+        label: t('converter.case.constantcase'),
         value: constantCase(input.value, baseConfig as any),
     },
     {
-        label: t('case-converter.dotcase'),
+        label: t('converter.case.dotcase'),
         value: dotCase(input.value, baseConfig as any),
     },
     {
-        label: t('case-converter.headercase'),
+        label: t('converter.case.headercase'),
         value: trainCase(input.value, baseConfig as any),
     },
     {
-        label: t('case-converter.nocase'),
+        label: t('converter.case.nocase'),
         value: noCase(input.value, baseConfig as any),
     }
     // Todo: Add more function to handle string
@@ -55,7 +55,7 @@ const formats = computed(() => [
         <el-form
             label-width="100px"
             label-position="right">
-            <el-form-item :label="`${$t('case-converter.yourstring')}:`">
+            <el-form-item :label="`${$t('converter.case.yourstring')}:`">
                 <el-input v-model="input" placeholder="Your String"></el-input>
             </el-form-item>
             <el-divider />

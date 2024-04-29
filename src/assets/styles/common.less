@@ -14,3 +14,44 @@ html, body {
         text-align: center;
     }
 }
+
+.status-error {
+    color: #F56C6C;
+}
+
+// json-viewer插件的样式
+.jv-container {
+    width: 100%;
+    box-sizing: border-box;
+    .jv-code {
+        padding: 10px;
+        border: 1px solid #dedede;
+        min-height: 300px;
+        overflow: auto;
+        .jv-node .jv-node {
+            margin-left: 30px;
+        }
+        .jv-node.toggle {
+            margin-left: 30px !important;
+        }
+    }
+    &.jv-light .jv-item.jv-string {
+        white-space: nowrap;
+    }
+}
+
+.test {
+    animation: scrollTop .8s linear forwards;
+}
+
+@keyframes scrollTop {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}

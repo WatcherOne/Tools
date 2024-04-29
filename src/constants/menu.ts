@@ -1,9 +1,80 @@
-export default [
-    // Todo: 暂时只做层级2, 后续增加多层级判断逻辑
+import { MenuItem } from '@/types/menu'
+
+const menuList: MenuItem[] = [
     {
-        title: '测试行',
-        icon: 'location',
-        url: '22',
-        keywords: ['demo1', 'demo2']
+        path: 'converter',
+        icon: 'House',
+        component: 'converter'
     }
 ]
+
+const menuChildrenList: MenuItem[] = [
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'converter/case',
+        parentPath: 'converter',
+        component: 'converter/case',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    }
+]
+
+export {
+    menuList,
+    menuChildrenList
+}

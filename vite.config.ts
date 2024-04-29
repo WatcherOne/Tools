@@ -23,6 +23,7 @@ export default defineConfig({
             ]
         }),
         AutoImport({
+            dirs: ['src/hooks'],
             imports: [
                 'vue',
                 'vue-router',
@@ -36,7 +37,8 @@ export default defineConfig({
             // 1、改为true用于生成eslint配置
             // 2、生成后改回false，避免重复生成消耗
             eslintrc: {
-                enabled: false
+                enabled: false,
+                globalsPropValue: true
             },
             // 配置文件生成位置默认: /auto-imports.d.ts
         }),

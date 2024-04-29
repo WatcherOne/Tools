@@ -2,6 +2,8 @@
 import WatHeader from './header.vue'
 import WatAside from './aside.vue'
 import WatToolsTop from './toolsTop.vue'
+
+const { isNavigation } = useRouteMeta()
 </script>
 
 <template>
@@ -10,11 +12,16 @@ import WatToolsTop from './toolsTop.vue'
             <wat-header></wat-header>
         </el-header>
         <el-container class="wat-bottom-container">
-            <el-aside width="200px">
+            <el-aside v-if="isNavigation" width="200px">
                 <wat-aside></wat-aside>
             </el-aside>
             <el-main class="wat-main">
-                <div class="wat-content">
+                <div v-if="isNavigation" class="wat-navigation">
+                    <router-view v-slot="{ Component }">
+                        <component :is="Component"></component>
+                    </router-view>
+                </div>
+                <div v-else class="wat-content">
                     <wat-tools-top></wat-tools-top>
                     <router-view v-slot="{ Component }">
                         <component :is="Component"></component>
@@ -32,7 +39,7 @@ import WatToolsTop from './toolsTop.vue'
         height: calc(100% - 60px);
         .wat-main {
             height: 100%;
-            background-color: #F1F5F8;
+            background-color: #F8F8F8;
             overflow: auto;
             .wat-content {
                 max-width: 600px;

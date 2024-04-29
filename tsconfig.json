@@ -7,7 +7,7 @@
         "skipLibCheck": true,
 
         /* Bundler mode */
-        "moduleResolution": "bundler",
+        "moduleResolution": "Node",
         "allowImportingTsExtensions": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
@@ -26,12 +26,16 @@
         }
     },
     "include": [
-        "src/**/**/*",
+        "src/*.ts",
+        "src/*.d.ts",
         "src/**/*.ts",
+        "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "./auto-imports.d.ts",
-        "./.eslintrc-auto-import.json"
+        "src/**/**/*.vue",
+        "src/components/**/*.vue",
+        "types/**/*.d.ts",
+        "./auto-imports.d.ts"
     ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
