@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import { MenuItem } from '@/types/menu'
-import { isCollection } from '@/utils/common'
+import { isCollection, join } from '@/utils/common'
 
 const { list } = defineProps<{
     list: MenuItem[]
 }>()
 
-const getIconColor = (path: string) => {
-    return isCollection(path) ? '#529b2e' : '#909399'
-}
-
-const handleToLink = (path: string) => {
-    window.open(`/${path}`)
+const handleToLink = (item: MenuItem) => {
+    const { parentPath, path } = item
+    window.open(`/${join(parentPath, path)}`)
 }
 </script>
 
@@ -24,25 +21,33 @@ const handleToLink = (path: string) => {
         :lg="6"
         :key="i">
         <el-card
-            shadow="never"
-            @click="handleToLink(item.path)"
+            shadow="hover"
+            @click="handleToLink(item)"
             class="wat-navigation-card">
             <div class="card-header">
                 <div class="card-icon">
                     <el-icon :size="40"><i-ep-odometer /></el-icon>
                 </div>
                 <div class="card-collection">
-                    <!-- Todo: 增加 hover 的样式, 一个圈实体 -->
                     <el-tooltip
                         effect="dark"
                         :content="$t('collection.join')"
                         placement="top">
-                        <el-icon :size="20" :color="getIconColor(item.path)"><i-ep-collection /></el-icon>
+                        <el-button circle text>
+                            <template #icon>
+                                <el-icon v-if="isCollection(item.path)" :size="25" color="#529b2e">
+                                    <i-ep-star-filled />
+                                </el-icon>
+                                <el-icon v-else :size="25" color="#909399">
+                                    <i-ep-star />
+                                </el-icon>
+                            </template>
+                        </el-button>
                     </el-tooltip>
                 </div>
             </div>
-            <div class="card-title">{{ $t(`${item.path}.title`) }}</div>
-            <div class="card-description">{{ $t(`${item.path}.description`) }}</div>
+            <div class="card-title">{{ $t(`${item.parentPath}.${item.path}.title`) }}</div>
+            <div class="card-description">{{ $t(`${item.parentPath}.${item.path}.description`) }}</div>
         </el-card>
     </el-col>
 </template>
@@ -57,18 +62,6 @@ const handleToLink = (path: string) => {
     cursor: pointer;
     &:hover {
         border: 2px solid #529b2e;
-        animation: scrollTop .2s linear forwards;
-    }
-    @keyframes scrollTop {
-        0% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-5px);
-        }
-        100% {
-            transform: translateY(-10px);
-        }
     }
     .card-header {
         display: flex;

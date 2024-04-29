@@ -1,11 +1,11 @@
 <script setup lang="ts">
-const { title, toolList } = useNavigation()
+const { path, toolList } = useNavigation()
 </script>
 
 <template>
     <div class="wat-converter">
         <navigation
-            :title="title"
+            :title="$t(`${path}.title`)"
             :toolList="toolList">
         </navigation>
     </div>

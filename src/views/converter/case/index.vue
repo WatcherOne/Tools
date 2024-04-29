@@ -13,37 +13,40 @@ const { t } = useI18n()
 const baseConfig = {
     stripRegexp: /[^A-Za-zÀ-ÖØ-öø-ÿ]+/gi
 }
+const { path, parentPath } = useRouteMeta()
+const i18Key = `${parentPath}.${path}`
+
 const formats = computed(() => [
     {
-        label: t('converter.case.lowercase'),
+        label: t(`${i18Key}.lowercase`),
         value: input.value.toLocaleLowerCase()
     },
     {
-        label: t('converter.case.uppercase'),
+        label: t(`${i18Key}.uppercase`),
         value: input.value.toLocaleUpperCase()
     },
     {
-        label: t('converter.case.camelcase'),
+        label: t(`${i18Key}.camelcase`),
         value: camelCase(input.value, baseConfig as any)
     },
     {
-        label: t('converter.case.capitalcase'),
+        label: t(`${i18Key}.capitalcase`),
         value: capitalCase(input.value, baseConfig as any)
     },
     {
-        label: t('converter.case.constantcase'),
+        label: t(`${i18Key}.constantcase`),
         value: constantCase(input.value, baseConfig as any),
     },
     {
-        label: t('converter.case.dotcase'),
+        label: t(`${i18Key}.dotcase`),
         value: dotCase(input.value, baseConfig as any),
     },
     {
-        label: t('converter.case.headercase'),
+        label: t(`${i18Key}.headercase`),
         value: trainCase(input.value, baseConfig as any),
     },
     {
-        label: t('converter.case.nocase'),
+        label: t(`${i18Key}.nocase`),
         value: noCase(input.value, baseConfig as any),
     }
     // Todo: Add more function to handle string
@@ -55,7 +58,7 @@ const formats = computed(() => [
         <el-form
             label-width="100px"
             label-position="right">
-            <el-form-item :label="`${$t('converter.case.yourstring')}:`">
+            <el-form-item :label="`${t(`${i18Key}.yourstring`)}:`">
                 <el-input v-model="input" placeholder="Your String"></el-input>
             </el-form-item>
             <el-divider />

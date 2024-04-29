@@ -26,8 +26,9 @@ const { title, toolList } = defineProps<NavigationProps>()
         border-bottom: 1px solid #dedede;
         padding: 0 10px 5px;
         margin-bottom: 15px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
+        color: #666;
     }
 }    
 </style>

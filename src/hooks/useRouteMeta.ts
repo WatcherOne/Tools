@@ -2,12 +2,13 @@ import { useRoute } from 'vue-router'
 
 export const useRouteMeta = () => {
     const { meta } = useRoute()
-    const { title, isNavigation = false, keywords, description } = meta || {}
+    // 切换语言时, 路由配置的并没有发生变化!
+    const { path, parentPath, isNavigation = false, keywords } = meta || {}
 
     return {
-        title,
+        path,
+        parentPath,
         isNavigation,
-        keywords,
-        description
+        keywords
     }
 }

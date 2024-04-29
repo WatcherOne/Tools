@@ -16,20 +16,20 @@ export default {
         copied: '复制到剪切板'
     },
     converter: {
-        title: 'Converter'
-    },
-    'converter/case': {
-        title: 'CaseConverter',
-        description: '更改字符串的大小写并在不同格式之间进行选择',
-        yourstring: 'Your String',
-        lowercase: 'Lowercase',
-        uppercase: 'Uppercase',
-        camelcase: 'Camelcase',
-        capitalcase: 'Capitalcase',
-        constantcase: 'Constantcase',
-        dotcase: 'Dotcase',
-        headercase: 'Headercase',
-        nocase: 'Nocase'
+        title: 'Converter',
+        case: {
+            title: 'CaseConverter',
+            description: '更改字符串的大小写并在不同格式之间进行选择',
+            yourstring: 'Your String',
+            lowercase: 'Lowercase',
+            uppercase: 'Uppercase',
+            camelcase: 'Camelcase',
+            capitalcase: 'Capitalcase',
+            constantcase: 'Constantcase',
+            dotcase: 'Dotcase',
+            headercase: 'Headercase',
+            nocase: 'Nocase'
+        }
     },
     'token-create': {
         title: 'Token 生成器',

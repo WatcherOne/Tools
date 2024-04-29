@@ -13,13 +13,14 @@ const dynamicRoutes = filterAsyncRouter(menuList)
 
 function filterAsyncRouter(list: MenuItem[]): Array<RouteRecordRaw> {
     return list.map((item: MenuItem) => {
-        const { path, component } = item
+        const { path } = item
         return <RouteRecordRaw>({
             path,
             name: capitalCase(path),
-            component: () => import(`../views/${component}/index.vue`),
+            component: () => import(`../views/${path}/index.vue`),
             children: filterChildren(path),
             meta: {
+                path,
                 title: translate(`${path}.title`),
                 isNavigation: true
             }
@@ -31,20 +32,22 @@ function filterChildren(parentPath?: string): Array<RouteRecordRaw> {
     const children = menuChildrenList.filter(item => item.parentPath === parentPath)
     if (children.length === 0) return []
     return children.map((item: MenuItem) => {
-        const { path, component, keywords = [] } = item
+        const { path, keywords = [] } = item
         return <RouteRecordRaw>({
             path,
             name: capitalCase(path),
-            component: () => import(`../views/${component}/index.vue`),
+            component: () => import(`../views/${parentPath}/${path}/index.vue`),
             meta: {
-                title: translate(`${path}.title`),
-                keywords,
-                // 目前只支持二级, 故不考虑三级的传递
-                description: translate(`${path}.description`)
+                path,
+                parentPath,
+                title: translate(`${parentPath}.${path}.title`),
+                isNavigation: false,
+                keywords
             }
         })
     })
 }
+console.log(dynamicRoutes, import('../views/converter/case/index.vue').then(res => console.log(res)))
 
 const routes: Array<RouteRecordRaw> = [
     {

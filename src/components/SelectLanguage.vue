@@ -15,7 +15,8 @@ const options = computed(() => {
     <div class="wat-select-language">
         <el-select
             v-model="locale"
-            :placeholder="`${$t('tips.please')} ${$t('tips.select')}`">
+            :placeholder="`${$t('tips.please')} ${$t('tips.select')}`"
+            style="width:100px">
             <el-option
                 v-for="item in options"
                 :key="item.value"

@@ -3,72 +3,32 @@ import { MenuItem } from '@/types/menu'
 const menuList: MenuItem[] = [
     {
         path: 'converter',
-        icon: 'House',
-        component: 'converter'
+        icon: 'House'
     }
 ]
 
 const menuChildrenList: MenuItem[] = [
     {
-        path: 'converter/case',
+        path: 'case',
         parentPath: 'converter',
-        component: 'converter/case',
         icon: 'House',
         keywords: ['', '', '', '']
     },
     {
-        path: 'converter/case',
+        path: 'case',
         parentPath: 'converter',
-        component: 'converter/case',
         icon: 'House',
         keywords: ['', '', '', '']
     },
     {
-        path: 'converter/case',
+        path: 'case',
         parentPath: 'converter',
-        component: 'converter/case',
         icon: 'House',
         keywords: ['', '', '', '']
     },
     {
-        path: 'converter/case',
+        path: 'case',
         parentPath: 'converter',
-        component: 'converter/case',
-        icon: 'House',
-        keywords: ['', '', '', '']
-    },
-    {
-        path: 'converter/case',
-        parentPath: 'converter',
-        component: 'converter/case',
-        icon: 'House',
-        keywords: ['', '', '', '']
-    },
-    {
-        path: 'converter/case',
-        parentPath: 'converter',
-        component: 'converter/case',
-        icon: 'House',
-        keywords: ['', '', '', '']
-    },
-    {
-        path: 'converter/case',
-        parentPath: 'converter',
-        component: 'converter/case',
-        icon: 'House',
-        keywords: ['', '', '', '']
-    },
-    {
-        path: 'converter/case',
-        parentPath: 'converter',
-        component: 'converter/case',
-        icon: 'House',
-        keywords: ['', '', '', '']
-    },
-    {
-        path: 'converter/case',
-        parentPath: 'converter',
-        component: 'converter/case',
         icon: 'House',
         keywords: ['', '', '', '']
     }
