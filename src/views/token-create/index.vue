@@ -31,7 +31,7 @@ const generatorToken = () => {
     })
 }
 
-const { copy } = useCopy({ source: token, text: useI18n().t('collection.copied') })
+const { copy } = useCopy({ source: token, text: useI18n().t('favorite.copied') })
 </script>
 
 <template>

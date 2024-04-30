@@ -4,7 +4,9 @@ import WatAside from './aside.vue'
 import WatToolsTop from './toolsTop.vue'
 
 const { isNavigation } = useRouteMeta()
-console.log(isNavigation)
+
+const route = useRoute()
+console.log(isNavigation, route)
 </script>
 
 <template>

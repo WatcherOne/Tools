@@ -23,7 +23,7 @@ export default defineConfig({
             ]
         }),
         AutoImport({
-            dirs: ['src/hooks'],
+            dirs: ['src/hooks', 'src/store'],
             imports: [
                 'vue',
                 'vue-router',

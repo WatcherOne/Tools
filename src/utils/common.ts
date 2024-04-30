@@ -13,13 +13,3 @@ export const isJSON = (str: string) => {
 export const join = (...path: (string | undefined | null)[]) => {
     return path.filter(Boolean).join('/')
 }
-
-export const isCollection = (favorite: string) => {
-    let favoriteList = localStorage.getItem('favoriteTools') || ''
-    try {
-        favoriteList = JSON.parse(favoriteList)
-        return favoriteList?.includes(favorite)
-    } catch {
-        return false
-    }
-}

@@ -13,8 +13,8 @@ const { t } = useI18n()
 const baseConfig = {
     stripRegexp: /[^A-Za-zÀ-ÖØ-öø-ÿ]+/gi
 }
-const { path, parentPath } = useRouteMeta()
-const i18Key = `${parentPath}.${path}`
+const { i18Key } = useRouteMeta()
+console.log(i18Key)
 
 const formats = computed(() => [
     {
@@ -54,7 +54,7 @@ const formats = computed(() => [
 </script>
 
 <template>
-    <el-card class="wat-token-create wat-card">
+    <el-card class="wat-converter-case wat-card">
         <el-form
             label-width="100px"
             label-position="right">

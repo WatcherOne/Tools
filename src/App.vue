@@ -22,6 +22,6 @@ const elementLocale = computed(() => {
 
 <template>
     <el-config-provider :locale="elementLocale">
-        <RouterView></RouterView>
+        <RouterView :key="$route.fullPath"></RouterView>
     </el-config-provider>
 </template>

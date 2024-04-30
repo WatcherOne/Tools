@@ -15,19 +15,19 @@ const menuChildrenList: MenuItem[] = [
         keywords: ['', '', '', '']
     },
     {
-        path: 'case',
+        path: 'color',
         parentPath: 'converter',
         icon: 'House',
         keywords: ['', '', '', '']
     },
     {
-        path: 'case',
+        path: 'unicode',
         parentPath: 'converter',
         icon: 'House',
         keywords: ['', '', '', '']
     },
     {
-        path: 'case',
+        path: 'jsonPrettify',
         parentPath: 'converter',
         icon: 'House',
         keywords: ['', '', '', '']

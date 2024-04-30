@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { MenuItem } from '@/types/menu'
-import { isCollection, join } from '@/utils/common'
+import { join } from '@/utils/common'
+import FavoriteButton from './favoriteButton.vue'
 
 const { list } = defineProps<{
     list: MenuItem[]
@@ -23,28 +24,13 @@ const handleToLink = (item: MenuItem) => {
         <el-card
             shadow="hover"
             @click="handleToLink(item)"
+            :key="`card-${i}`"
             class="wat-navigation-card">
             <div class="card-header">
                 <div class="card-icon">
                     <el-icon :size="40"><i-ep-odometer /></el-icon>
                 </div>
-                <div class="card-collection">
-                    <el-tooltip
-                        effect="dark"
-                        :content="$t('collection.join')"
-                        placement="top">
-                        <el-button circle text>
-                            <template #icon>
-                                <el-icon v-if="isCollection(item.path)" :size="25" color="#529b2e">
-                                    <i-ep-star-filled />
-                                </el-icon>
-                                <el-icon v-else :size="25" color="#909399">
-                                    <i-ep-star />
-                                </el-icon>
-                            </template>
-                        </el-button>
-                    </el-tooltip>
-                </div>
+                <favorite-button :item="item" :key="item.path"></favorite-button>
             </div>
             <div class="card-title">{{ $t(`${item.parentPath}.${item.path}.title`) }}</div>
             <div class="card-description">{{ $t(`${item.parentPath}.${item.path}.description`) }}</div>
@@ -74,7 +60,7 @@ const handleToLink = (item: MenuItem) => {
     }
     .card-title {
         font-size: 18px;
-        margin: 7px 0;
+        margin: 15px 0;
     }
     .card-description {
         overflow: hidden;
@@ -83,6 +69,7 @@ const handleToLink = (item: MenuItem) => {
         -webkit-line-clamp: 2;
         color: #737373;
         font-size: 14px;
+        min-height: 40px;
     }
 }
 </style>

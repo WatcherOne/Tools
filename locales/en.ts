@@ -1,25 +1,34 @@
 export default {
+    main: 'Main Page',
     menu: {
-        center: 'user center'
+        center: 'User Center',
+        searchTitle: 'On Site'
     },
     tips: {
-        please: 'please',
-        select: 'select'
+        please: 'please ',
+        input: 'input',
+        select: 'select',
+        search: 'search',
+        searchTips: 'press Enter to search'
     },
     button: {
-        copy: 'copy',
-        refresh: 'refresh'
+        copy: 'Copy',
+        refresh: 'Refresh'
     },
-    collection: {
+    favorite: {
+        title: 'My Favorite',
         join: 'Add to favorites',
         cancel: 'Remove from favorites',
         copied: '复制到剪切板'
     },
+    tools: {
+        full: 'All Tools'
+    },
     converter: {
         title: 'Converter',
         case: {
-            title: 'CaseConverter',
-            description: '更改字符串的大小写并在不同格式之间进行选择',
+            title: 'Case Converter',
+            description: 'Various Format Conversions For String Capitalization',
             yourstring: 'Your String',
             lowercase: 'Lowercase',
             uppercase: 'Uppercase',
@@ -29,6 +38,18 @@ export default {
             dotcase: 'Dotcase',
             headercase: 'Headercase',
             nocase: 'Nocase'
+        },
+        color: {
+            title: 'Color Converter',
+            description: 'Online Color Value Conversion Tool, RGB To RGB / RGBA / HEX / HSL'
+        },
+        unicode: {
+            title: 'Text Unicode Converter',
+            description: 'Text to Unicode or Unicode to Text'
+        },
+        jsonPrettify: {
+            title: 'JSON Beautify',
+            description: 'Decorate JSON Strings Into A Highly Readable Format'
         }
     },
     'token-create': {

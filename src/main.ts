@@ -8,7 +8,7 @@ import JsonView from 'vue3-json-viewer'
 const app = createApp(App)
 
 // Todo: 主题色切换改变!
-app.use(createPinia)
+app.use(createPinia())
 app.use(i18n)
 app.use(router)
 app.use(JsonView)

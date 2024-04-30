@@ -1,22 +1,19 @@
 <script setup lang="ts">
-const { name, meta } = useRoute()
-
-// Todo name to Localstorage
-console.log(name)
+const { i18Key } = useRouteMeta()
 </script>
 
 <template>
     <div class="wat-tools-top">
         <div class="section">
-            <div class="title">{{ meta?.title }}</div>
+            <div class="title">{{ $t(`${i18Key}.title`) }}</div>
             <el-tooltip
                 effect="dark"
-                :content="$t('collection.join')"
+                :content="$t('favorite.join')"
                 placement="top">
                 <el-icon :size="40"><i-ep-house /></el-icon>
             </el-tooltip>
         </div>
-        <div class="description">{{ meta?.description }}</div>
+        <div class="description">{{ $t(`${i18Key}.description`) }}</div>
     </div>
 </template>
 

@@ -3,8 +3,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import { capitalCase } from 'change-case'
 import { translate } from '@/plugins/i18n'
 import Layout from '@/layout/index.vue'
+import Home from '@/views/home/index.vue'
 import TokenCreate from '@/views/token-create/index.vue'
-import JsonFormat from '@/views/json-format/index.vue'
 import Chmod from '@/views/chmod/index.vue'
 import { menuList, menuChildrenList } from '@/constants/menu.ts'
 import { MenuItem } from '@/types/menu'
@@ -17,13 +17,20 @@ function filterAsyncRouter(list: MenuItem[]): Array<RouteRecordRaw> {
         return <RouteRecordRaw>({
             path,
             name: capitalCase(path),
-            component: () => import(`../views/${path}/index.vue`),
-            children: filterChildren(path),
-            meta: {
-                path,
-                title: translate(`${path}.title`),
-                isNavigation: true
-            }
+            redirect: `/${path}/home`,
+            children: [
+                {
+                    path: `/${path}/home`,
+                    name: `${capitalCase(path)}Home`,
+                    component: () => import(`../views/${path}/index.vue`),
+                    meta: {
+                        path,
+                        title: translate(`${path}.title`),
+                        isNavigation: true
+                    }
+                },
+                ...filterChildren(path)
+            ]
         })
     })
 }
@@ -47,7 +54,6 @@ function filterChildren(parentPath?: string): Array<RouteRecordRaw> {
         })
     })
 }
-console.log(dynamicRoutes, import('../views/converter/case/index.vue').then(res => console.log(res)))
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -56,6 +62,15 @@ const routes: Array<RouteRecordRaw> = [
         component: Layout,
         redirect: '/home',
         children: [
+            {
+                path: '/home',
+                name: 'Home',
+                component: Home,
+                meta: {
+                    title: translate('main'),
+                    isNavigation: true
+                }
+            },
             ...dynamicRoutes,
             {
                 path: '/token-create',
@@ -63,15 +78,6 @@ const routes: Array<RouteRecordRaw> = [
                 component: TokenCreate,
                 meta: {
                     title: 'Token生成器',
-                    description: translate('token-create.description')
-                }
-            },
-            {
-                path: '/json-format',
-                name: 'JsonFormat',
-                component: JsonFormat,
-                meta: {
-                    title: 'JSON格式化',
                     description: translate('token-create.description')
                 }
             },
