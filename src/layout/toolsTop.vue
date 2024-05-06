@@ -1,17 +1,12 @@
 <script setup lang="ts">
-const { i18Key } = useRouteMeta()
+const { path, parentPath, i18Key } = useRouteMeta()
 </script>
 
 <template>
     <div class="wat-tools-top">
         <div class="section">
             <div class="title">{{ $t(`${i18Key}.title`) }}</div>
-            <el-tooltip
-                effect="dark"
-                :content="$t('favorite.join')"
-                placement="top">
-                <el-icon :size="40"><i-ep-house /></el-icon>
-            </el-tooltip>
+            <favorite-button :item="{ path, parentPath }"></favorite-button>  
         </div>
         <div class="description">{{ $t(`${i18Key}.description`) }}</div>
     </div>
@@ -29,7 +24,7 @@ const { i18Key } = useRouteMeta()
         border-bottom: 2px solid #dedede;
         margin-bottom: 10px;
         .title {
-            font-size: 40px;
+            font-size: 26px;
             color: #222;
         }
     }

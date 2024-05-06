@@ -33,6 +33,8 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "src/**/**/*.vue",
+        "src/**/**/**.vue",
+        "src/views/**/**/*.vue",
         "src/components/**/*.vue",
         "src/components/**/**.vue",
         "types/**/*.d.ts",

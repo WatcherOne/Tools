@@ -7,6 +7,8 @@ import {
     trainCase,
     noCase
 } from 'change-case'
+import outputList from './outputList.vue'
+
 const input = ref('Welcome to use more interesting plugins')
 
 const { t } = useI18n()
@@ -63,15 +65,7 @@ const formats = computed(() => [
             </el-form-item>
             <el-divider />
             <el-form-item v-for="(item, i) in formats" :key="i" :label="`${item.label}:`">
-                <el-input v-model="item.value">
-                    <template #append>
-                        <el-button>
-                            <template #icon>
-                                <el-icon><i-ep-copy-document /></el-icon>
-                            </template>
-                        </el-button>
-                    </template>
-                </el-input>
+                <output-list :value="item.value" :key="item.label"></output-list>
             </el-form-item>
         </el-form>
     </el-card>

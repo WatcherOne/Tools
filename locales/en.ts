@@ -13,13 +13,13 @@ export default {
     },
     button: {
         copy: 'Copy',
-        refresh: 'Refresh'
+        refresh: 'Refresh',
+        copied: 'Copied to clipboard'
     },
     favorite: {
         title: 'My Favorite',
         join: 'Add to favorites',
-        cancel: 'Remove from favorites',
-        copied: '复制到剪切板'
+        cancel: 'Remove from favorites'
     },
     tools: {
         full: 'All Tools'
@@ -45,11 +45,23 @@ export default {
         },
         unicode: {
             title: 'Text Unicode Converter',
+            textToUnicode: 'Text To Unicode',
+            unicodeToText: 'Unicode To Text',
             description: 'Text to Unicode or Unicode to Text'
         },
         jsonPrettify: {
             title: 'JSON Beautify',
             description: 'Decorate JSON Strings Into A Highly Readable Format'
+        }
+    },
+    calculator: {
+        title: 'Calculator',
+        bmi: {
+            title: 'BMI',
+            description: 'Body Mass Index, also known as Body Mass Index, is a body mass index It is a commonly used international standard to measure the degree of obesity and health of the human body',
+            height: 'Height',
+            weight: 'Weight',
+            info: 'BMI = Weight ➗ Height² (kg / m²)'
         }
     },
     'token-create': {

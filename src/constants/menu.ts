@@ -4,6 +4,10 @@ const menuList: MenuItem[] = [
     {
         path: 'converter',
         icon: 'House'
+    },
+    {
+        path: 'calculator',
+        icon: 'House'
     }
 ]
 
@@ -29,6 +33,18 @@ const menuChildrenList: MenuItem[] = [
     {
         path: 'jsonPrettify',
         parentPath: 'converter',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'bmi',
+        parentPath: 'calculator',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'loan',
+        parentPath: 'calculator',
         icon: 'House',
         keywords: ['', '', '', '']
     }

@@ -24,12 +24,18 @@ console.log(isNavigation, route)
                         <component :is="Component"></component>
                     </router-view>
                 </div>
-                <div v-else class="wat-content">
-                    <wat-tools-top></wat-tools-top>
-                    <router-view v-slot="{ Component }">
-                        <component :is="Component"></component>
-                    </router-view>
-                </div>
+                <el-row v-else class="wat-content">
+                    <el-col
+                        :xs="22"
+                        :sm="18"
+                        :md="16"
+                        :lg="14">
+                        <wat-tools-top></wat-tools-top>
+                        <router-view v-slot="{ Component }">
+                            <component :is="Component"></component>
+                        </router-view>
+                    </el-col>
+                </el-row>
             </el-main>
         </el-container>
     </el-container>
@@ -49,7 +55,7 @@ console.log(isNavigation, route)
             background-color: #F8F8F8;
             overflow: auto;
             .wat-content {
-                max-width: 600px;
+                justify-content: center;
                 margin: 0 auto;
             }
         }

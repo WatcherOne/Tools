@@ -11,15 +11,18 @@ export default {
         search: '搜索',
         searchTips: '按回车搜索'
     },
+    rules: {
+        notEmpty: '当前项不可为空'
+    },
     button: {
         copy: '复制',
-        refresh: '刷新'
+        refresh: '刷新',
+        copied: '已复制到剪切板'
     },
     favorite: {
         title: '我的收藏',
         join: '加入收藏',
-        cancel: '取消收藏',
-        copied: '复制到剪切板'
+        cancel: '取消收藏'
     },
     tools: {
         full: '全部工具'
@@ -28,7 +31,7 @@ export default {
         title: '转换器',
         case: {
             title: '大小写转换',
-            description: '字符串大小写各种格式转换',
+            description: '字符串大小写转换, 提供各种格式规则',
             yourstring: '您的字符',
             lowercase: '全小写',
             uppercase: '全大写',
@@ -45,11 +48,33 @@ export default {
         },
         unicode: {
             title: '文本Unicode转换',
+            textToUnicode: '文本 To Unicode',
+            unicodeToText: 'Unicode To 文本',
             description: '文本转 Unicode 或 Unicode 转文本'
         },
         jsonPrettify: {
             title: 'JSON美化',
             description: '将JSON字符串修饰为可读性高的格式'
+        }
+    },
+    calculator: {
+        title: '计算器',
+        bmi: {
+            title: 'BMI',
+            description: '身体质量指数, 是BMI（Body Mass Index）指数, 简称体质指数。是国际上常用的衡量人体胖瘦程度以及是否健康的一个标准',
+            height: '身高',
+            weight: '体重',
+            info: '身体质量指数(BMI) = 体重 ➗ 身高² (kg / m²)',
+            weightUnder: '体重过轻',
+            weightNormal: '正常范围',
+            weightOver: '体重过重',
+            weightOver1: '轻度肥胖',
+            weightOver2: '中度肥胖',
+            weightOver3: '重度肥胖'
+        },
+        loan: {
+            title: '房贷计算器',
+            description: '最新在线房贷计算器, 等额本息, 等额本金的计算方式; 还款详情一目了然'
         }
     },
     'token-create': {
