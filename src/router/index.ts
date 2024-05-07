@@ -39,7 +39,7 @@ function filterChildren(parentPath?: string): Array<RouteRecordRaw> {
     const children = menuChildrenList.filter(item => item.parentPath === parentPath)
     if (children.length === 0) return []
     return children.map((item: MenuItem) => {
-        const { path, keywords = [] } = item
+        const { path, keywords = [], isOverflow = false } = item
         return <RouteRecordRaw>({
             path,
             name: capitalCase(path),
@@ -49,6 +49,7 @@ function filterChildren(parentPath?: string): Array<RouteRecordRaw> {
                 parentPath,
                 title: translate(`${parentPath}.${path}.title`),
                 isNavigation: false,
+                isOverflow,
                 keywords
             }
         })

@@ -3,10 +3,7 @@ import WatHeader from './header.vue'
 import WatAside from './aside.vue'
 import WatToolsTop from './toolsTop.vue'
 
-const { isNavigation } = useRouteMeta()
-
-const route = useRoute()
-console.log(isNavigation, route)
+const { isNavigation, isOverflow } = useRouteMeta()
 </script>
 
 <template>
@@ -24,7 +21,7 @@ console.log(isNavigation, route)
                         <component :is="Component"></component>
                     </router-view>
                 </div>
-                <el-row v-else class="wat-content">
+                <el-row v-else :class="['wat-content', { 'wat-overflow-content': isOverflow }]">
                     <el-col
                         :xs="22"
                         :sm="18"
@@ -54,9 +51,25 @@ console.log(isNavigation, route)
             height: 100%;
             background-color: #F8F8F8;
             overflow: auto;
+            padding: 20px 0;
+            .wat-navigation {
+                padding: 0 20px;
+            }
             .wat-content {
                 justify-content: center;
                 margin: 0 auto;
+            }
+            .wat-overflow-content {
+                height: 100%;
+                .el-col {
+                    height: 100%;
+                    .wat-card {
+                        height: calc(100% - 88.5px);
+                        &:deep(.el-card__body) {
+                            height: calc(100% - 40px);
+                        }
+                    }
+                }
             }
         }
     }

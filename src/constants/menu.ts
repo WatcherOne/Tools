@@ -8,6 +8,18 @@ const menuList: MenuItem[] = [
     {
         path: 'calculator',
         icon: 'House'
+    },
+    {
+        path: 'game',
+        icon: 'House'
+    },
+    {
+        path: 'develop',
+        icon: 'House'
+    },
+    {
+        path: 'common',
+        icon: 'House'
     }
 ]
 
@@ -47,6 +59,32 @@ const menuChildrenList: MenuItem[] = [
         parentPath: 'calculator',
         icon: 'House',
         keywords: ['', '', '', '']
+    },
+    {
+        path: 'languageCharm',
+        parentPath: 'game',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'scan',
+        parentPath: 'develop',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
+        path: 'areaCode',
+        parentPath: 'common',
+        icon: 'House',
+        keywords: ['', '', '', ''],
+        isOverflow: true
+    },
+    {
+        path: 'servicePhone',
+        parentPath: 'common',
+        icon: 'House',
+        keywords: ['', '', '', ''],
+        isOverflow: true
     }
 ]
 

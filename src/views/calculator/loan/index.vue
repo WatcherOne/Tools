@@ -1,22 +1,7 @@
 <script setup lang="ts">
-import { Proportion, Repayment, Periods } from './config'
-
-interface FormData {
-    housePrice: number,            // 房款总价
-    paymentRatio: number | string, // 首付比例
-    loanAmount: number,            // 贷款总额
-    periods: number                // 期数, 按揭年份
-    yearRate: number,              // 利率
-    repayment: 1 | 2               // 还款方式
-}
-
-interface ColOptions {
-    period: string,
-    monthInterest: number,
-    monthAmount: number,
-    monthSupply: number,
-    remainAmount?: number
-}
+import { FormData, ColOptions } from './config'
+import { useLoan } from './useLoan'
+import LoanForm from './LoanForm.vue'
 
 const { t } = useI18n()
 const activeTab = ref('business')
@@ -32,10 +17,7 @@ const formData = reactive<FormData>({
 })
 // 月利率
 const monthRate = computed(() => {
-    return formData.yearRate / 100 /12
-})
-const divisor = computed(() => {
-    return (1 + monthRate.value) ** (formData.periods * 12) -1
+    return formData.yearRate / 100 / 12
 })
 // 每月应还本金
 const monthPrincipal = computed(() => {
@@ -45,11 +27,7 @@ const monthPrincipal = computed(() => {
 const monthRemainAmount = computed(() => {
     return (monthPrincipal.value * monthRate.value).toFixed(2)
 })
-const repayTips = computed(() => {
-    return formData.repayment === 1
-    ? '每月还款金额不变, 其中还款的本金逐月递增, 利息逐月递减'
-    : `每月还款金额递减约${monthRemainAmount.value}元, 其中每月还款本金不变, 利息逐月递减`
-})
+
 const formRules = reactive<FormRules<FormData>>({
     housePrice: [
        { required: true, message: t('rules.notEmpty'), trigger: 'blur' },
@@ -60,82 +38,25 @@ const formRules = reactive<FormRules<FormData>>({
     yearRate: { required: true, message: t('rules.notEmpty'), trigger: 'blur' }
 })
 
-const handleChangeRadio = (value: number) => {
-    const { housePrice } = formData
-    const percent = value * 10 / 100
-    formData.loanAmount = housePrice * (1 - percent)
-}
+const showResult = ref(false)
+const monthSupply = ref(0)
+const totalRate = ref(0)
+const tableList = ref<ColOptions[]>([])
 
 const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    await formEl.validate((valid, fields) => {
+    await formEl.validate((valid: boolean, fields: any) => {
         if (valid) {
-            const { repayment } = formData
-            repayment === 1 ? equalPriceAndInterest() : equalPriceAndAmount()
+            const { repayment, loanAmount, periods, yearRate } = formData
+            const resultObj = useLoan({ repayment, loanAmount, periods, yearRate })
+            monthSupply.value = resultObj.monthSupply
+            totalRate.value = resultObj.totalRate
+            tableList.value = resultObj.tableList
+            showResult.value = true
         } else {
             console.log('error submit!', fields)
         }
     })
-}
-
-const showResult = ref(false)
-const tableList = ref<ColOptions[]>([])
-const totalRate = ref(0)
-const monthSupply = ref(0)
-
-// 每月月供额=〔贷款的本金×月利率×(1+月利率)^还款月数〕÷〔(1+月利率)^还款月数-1〕
-// 每月应还利息=贷款的本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
-// 每月应还本金=贷款的本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
-// 总利息=还款月数×每月月供额-贷款的本金
-const equalPriceAndInterest = () => {
-    const { loanAmount, periods } = formData
-    const times = periods * 12
-    monthSupply.value = (loanAmount * 10000 * monthRate.value * ((1 + monthRate.value) ** times)) / divisor.value
-    totalRate.value = times * monthSupply.value - loanAmount * 10000
-    tableList.value = Array.from({ length: times }).map((_, i) => {
-        return {
-            period: `第${i + 1}期`,
-            monthInterest: calculateMonthInterest(i + 1),
-            monthAmount: calculateMonthAmount(i + 1),
-            monthSupply: monthSupply.value
-        }
-    })
-    showResult.value = true
-}
-
-// 计算每月应还利息
-const calculateMonthInterest = (index: number) => {
-    const { loanAmount, periods } = formData
-    return loanAmount * 10000 * monthRate.value * ((1 + monthRate.value) ** (periods * 12) - (1 + monthRate.value) ** (index - 1)) / divisor.value
-}
-
-// 计算每月应还本金
-const  calculateMonthAmount = (index: number) => {
-    const { loanAmount } = formData
-    return loanAmount * 10000 * monthRate.value * ((1 + monthRate.value) ** (index - 1)) / divisor.value
-}
-
-const equalPriceAndAmount = () => {
-    // 每月月供额=(贷款的本金÷还款月数)+(贷款的本金-已归还本金累计额)×月利率
-    // 每月应还本金=贷款的本金÷还款月数
-    // 每月应还利息=剩余本金×月利率=(贷款的本金-已归还本金累计额)×月利率
-    // 每月月供递减额=每月应还本金×月利率=贷款的本金÷还款月数×月利率
-    // 总利息= 还款月数×(总贷款额×月利率-月利率×(总贷款额÷还款月数)*(还款月数-1)÷2)
-    const { loanAmount, periods } = formData
-    const times = periods * 12
-    monthSupply.value = monthPrincipal.value + (loanAmount * 10000 - 0) * monthRate.value
-    totalRate.value = times * (loanAmount * 10000 * monthRate.value - monthRate.value * monthPrincipal.value * (times - 1) / 2)
-    tableList.value = Array.from({ length: times }).map((_, i) => {
-        const remainMonthTotal = (loanAmount * 10000 - monthPrincipal.value * i) * monthRate.value
-        return {
-            period: `第${i + 1}期`,
-            monthInterest: remainMonthTotal,
-            monthAmount: monthPrincipal.value,
-            monthSupply: monthPrincipal.value + remainMonthTotal,
-            remainAmount: loanAmount * 10000 - (monthPrincipal.value * (i + 1))
-        }
-    })
-    showResult.value = true
 }
 </script>
 
@@ -149,57 +70,10 @@ const equalPriceAndAmount = () => {
             label-position="right">
             <el-tabs v-model="activeTab">
                 <el-tab-pane label="商业贷" name="business">
-                    <el-form-item label="房款总价" prop="housePrice">
-                        <el-input v-model.number="formData.housePrice">
-                            <template #append>万元</template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="首付比例">
-                        <el-select v-model="formData.paymentRatio" @change="handleChangeRadio">
-                            <el-option
-                                v-for="item in Proportion"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="贷款总额" prop="loanAmount">
-                        <el-input v-model.number="formData.loanAmount">
-                            <template #append>万元</template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="总计期数" prop="periods">
-                        <el-select v-model="formData.periods">
-                            <el-option
-                                v-for="item in Periods"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="房款利率" prop="yearRate">
-                        <el-input v-model.number="formData.yearRate">
-                            <template #append>%</template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="还款方式">
-                        <el-select v-model="formData.repayment">
-                            <el-option
-                                v-for="item in Repayment"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="">
-                        <el-alert type="warning" :closable="false" size="mini">{{ repayTips }}</el-alert>
-                    </el-form-item>
+                    <loan-form v-model:formData="formData"></loan-form>
                 </el-tab-pane>
                 <el-tab-pane label="公积金贷" name="fund">
-                    
+                    <loan-form v-model:formData="formData"></loan-form>
                 </el-tab-pane>
                 <el-tab-pane label="组合贷" name="combination">
                     
@@ -268,7 +142,7 @@ const equalPriceAndAmount = () => {
                         <div>{{ (totalRate / 10000).toFixed(2) }}万</div>
                     </div>
                 </div>
-                <el-table v-show="formData.repayment === 1" :data="tableList" border style="height:400px">
+                <el-table v-show="formData.repayment === 1" :data="tableList" border stripe style="height:400px">
                     <el-table-column prop="period" label="期数" width="100" align="center"></el-table-column>
                     <el-table-column prop="monthSupply" label="月供总额" align="center">
                         <template #default="{ row }">
@@ -286,7 +160,7 @@ const equalPriceAndAmount = () => {
                         </template>
                     </el-table-column>
                 </el-table>
-                <el-table v-show="formData.repayment === 2" :data="tableList" border style="height:400px">
+                <el-table v-show="formData.repayment === 2" :data="tableList" border stripe style="height:400px">
                     <el-table-column prop="period" label="期数" width="100" align="center"></el-table-column>
                     <el-table-column prop="monthSupply" label="月供总额" align="center">
                         <template #default="{ row }">
@@ -305,7 +179,7 @@ const equalPriceAndAmount = () => {
                     </el-table-column>
                     <el-table-column prop="remainAmount" label="剩余应还金额" align="center">
                         <template #default="{ row }">
-                            <span>{{ row?.remainAmount.toFixed(2) }}元</span>
+                            <span>{{ row.remainAmount?.toFixed(2) }}元</span>
                         </template>
                     </el-table-column>
                 </el-table>

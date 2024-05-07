@@ -77,6 +77,31 @@ export default {
             description: '最新在线房贷计算器, 等额本息, 等额本金的计算方式; 还款详情一目了然'
         }
     },
+    common: {
+        title: '常用工具',
+        areaCode: {
+            title: '电话区号',
+            description: '列出世界电话区号供查看'
+        },
+        servicePhone: {
+            title: '服务电话',
+            description: '常用服务电话查询'
+        }
+    },
+    game: {
+        title: '娱乐工具',
+        languageCharm: {
+            title: '语言魅力',
+            description: '说温柔的话, 伤人最深, 骂人语录仅供娱乐使用'
+        }
+    },
+    develop: {
+        title: '开发工具',
+        scan: {
+            title: '艺术二维码',
+            description: '艺术二维码生成器, 提供了一些可调整的艺术二维码选择'
+        }
+    },
     'token-create': {
         title: 'Token 生成器',
         description: '使用您想要的字符: 大写字母、小写字母、数字、符号生成随机字符串',

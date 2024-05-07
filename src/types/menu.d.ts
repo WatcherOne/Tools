@@ -3,5 +3,6 @@ export interface MenuItem {
     parentPath?: string,
     icon?: string,
     keywords?: string[],
-    children?: MenuItem[]
+    children?: MenuItem[],
+    isOverflow?: boolean   // 是否是滚动页面
 }
