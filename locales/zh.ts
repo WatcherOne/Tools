@@ -100,6 +100,10 @@ export default {
         scan: {
             title: '艺术二维码',
             description: '艺术二维码生成器, 提供了一些可调整的艺术二维码选择'
+        },
+        face: {
+            title: '人脸识别',
+            description: '人脸识别测试'
         }
     },
     'token-create': {

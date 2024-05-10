@@ -73,6 +73,12 @@ const menuChildrenList: MenuItem[] = [
         keywords: ['', '', '', '']
     },
     {
+        path: 'face',
+        parentPath: 'develop',
+        icon: 'House',
+        keywords: ['', '', '', '']
+    },
+    {
         path: 'areaCode',
         parentPath: 'common',
         icon: 'House',
